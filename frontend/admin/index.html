@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Admin Login — True Blue Legals</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--navy:#0d1b2e;--gold:#b8965a;--gold-light:#d4aa6e;--gold-pale:#f5efe6;--cream:#faf8f4;--text:#2c2c2c;--error:#c62828}
+body{font-family:'Jost',sans-serif;background:var(--navy);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.login-card{background:#fff;width:100%;max-width:420px;border-top:4px solid var(--gold)}
+.login-header{background:var(--navy);padding:32px;text-align:center;border-bottom:1px solid rgba(184,150,90,.2)}
+.logo-icon{width:52px;height:52px;background:rgba(184,150,90,.12);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;margin-bottom:14px}
+.logo-icon svg{width:26px;height:26px;fill:var(--gold)}
+.login-header h1{font-family:'Playfair Display',serif;font-size:1.3rem;color:#fff;font-weight:700}
+.login-header p{font-size:.72rem;letter-spacing:.2em;color:rgba(255,255,255,.4);text-transform:uppercase;margin-top:4px}
+.login-body{padding:36px 32px}
+.form-group{margin-bottom:20px}
+.form-group label{display:block;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--navy);margin-bottom:8px}
+.form-group input{width:100%;padding:13px 16px;border:1px solid rgba(184,150,90,.35);font-family:'Jost',sans-serif;font-size:.92rem;color:var(--text);outline:none;transition:border .3s;border-radius:0}
+.form-group input:focus{border-color:var(--gold)}
+.btn{width:100%;background:var(--navy);color:var(--gold-light);padding:14px;border:none;font-family:'Jost',sans-serif;font-size:.82rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;transition:background .3s;position:relative}
+.btn:hover{background:#162336}
+.btn:disabled{opacity:.6;cursor:not-allowed}
+.error-msg{background:#fdecea;border-left:3px solid var(--error);padding:12px 16px;font-size:.85rem;color:var(--error);margin-bottom:18px;display:none}
+.disclaimer{margin-top:20px;font-size:.75rem;color:#999;text-align:center;line-height:1.5}
+.spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(212,170,110,.3);border-top-color:var(--gold-light);border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:8px}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<div class="login-card">
+  <div class="login-header">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+    </div>
+    <h1>Admin Portal</h1>
+    <p>True Blue Legals</p>
+  </div>
+  <div class="login-body">
+    <div id="errorMsg" class="error-msg"></div>
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="password">Admin Password</label>
+        <input type="password" id="password" placeholder="Enter admin password" required autocomplete="current-password">
+      </div>
+      <button type="submit" class="btn" id="loginBtn">Sign In</button>
+    </form>
+    <p class="disclaimer">This portal is for authorised personnel only.<br>All access is logged.</p>
+  </div>
+</div>
+
+<script>
+document.getElementById('loginForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('loginBtn');
+  const errorMsg = document.getElementById('errorMsg');
+  const password = document.getElementById('password').value;
+
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Signing in…';
+  errorMsg.style.display = 'none';
+
+  try {
+    const res = await fetch('/api/admin/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password }),
+    });
+    const data = await res.json();
+    if (data.success) {
+      localStorage.setItem('tbl_admin_token', data.token);
+      window.location.href = '/admin/dashboard.html';
+    } else {
+      errorMsg.textContent = data.message || 'Invalid password.';
+      errorMsg.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Sign In';
+    }
+  } catch {
+    errorMsg.textContent = 'Connection error. Is the server running?';
+    errorMsg.style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = 'Sign In';
+  }
+});
+</script>
+</body>
+</html>

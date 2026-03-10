@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Dashboard — True Blue Legals Admin</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Jost:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --navy: #0d1b2e;
+            --navy-mid: #162336;
+            --gold: #b8965a;
+            --gold-light: #d4aa6e;
+            --gold-pale: #f5efe6;
+            --cream: #faf8f4;
+            --text: #2c2c2c;
+            --text-light: #6a6a6a;
+            --white: #fff;
+            --border: rgba(184, 150, 90, 0.25)
+        }
+
+        body {
+            font-family: 'Jost', sans-serif;
+            background: #f0f2f5;
+            color: var(--text);
+            min-height: 100vh
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 240px;
+            background: var(--navy);
+            padding: 0;
+            z-index: 10;
+            display: flex;
+            flex-direction: column
+        }
+
+        .sidebar-brand {
+            padding: 24px 24px 20px;
+            border-bottom: 1px solid rgba(184, 150, 90, .15)
+        }
+
+        .sidebar-brand-icon {
+            width: 42px;
+            height: 42px;
+            background: rgba(184, 150, 90, .12);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px
+        }
+
+        .sidebar-brand-icon svg {
+            width: 22px;
+            height: 22px;
+            fill: var(--gold)
+        }
+
+        .sidebar-brand h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            color: #fff;
+            line-height: 1.1
+        }
+
+        .sidebar-brand p {
+            font-size: .65rem;
+            letter-spacing: .18em;
+            color: rgba(255, 255, 255, .35);
+            text-transform: uppercase;
+            margin-top: 2px
+        }
+
+        .nav-section {
+            padding: 20px 0
+        }
+
+        .nav-label {
+            font-size: .62rem;
+            letter-spacing: .2em;
+            color: rgba(255, 255, 255, .2);
+            text-transform: uppercase;
+            font-weight: 600;
+            padding: 0 24px;
+            margin-bottom: 8px
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 11px 24px;
+            font-size: .84rem;
+            color: rgba(255, 255, 255, .55);
+            cursor: pointer;
+            transition: all .2s;
+            border-left: 3px solid transparent;
+            text-decoration: none
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background: rgba(184, 150, 90, .08);
+            color: #fff;
+            border-left-color: var(--gold)
+        }
+
+        .nav-item svg {
+            width: 17px;
+            height: 17px;
+            fill: currentColor;
+            flex-shrink: 0
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            padding: 20px 24px;
+            border-top: 1px solid rgba(184, 150, 90, .15)
+        }
+
+        .btn-logout {
+            width: 100%;
+            background: rgba(184, 150, 90, .1);
+            border: 1px solid rgba(184, 150, 90, .25);
+            color: var(--gold-light);
+            padding: 10px;
+            font-family: 'Jost', sans-serif;
+            font-size: .78rem;
+            font-weight: 500;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all .3s;
+            border-radius: 2px
+        }
+
+        .btn-logout:hover {
+            background: rgba(184, 150, 90, .2)
+        }
+
+        /* Main */
+        .main {
+            margin-left: 240px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column
+        }
+
+        .topbar {
+            background: #fff;
+            padding: 0 32px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #e8e8e8;
+            box-shadow: 0 1px 8px rgba(0, 0, 0, .04)
+        }
+
+        .topbar-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--navy);
+            font-weight: 700
+        }
+
+        .topbar-badge {
+            background: var(--gold-pale);
+            border: 1px solid var(--border);
+            color: var(--gold);
+            font-size: .72rem;
+            font-weight: 600;
+            letter-spacing: .1em;
+            padding: 4px 12px;
+            border-radius: 14px;
+            text-transform: uppercase
+        }
+
+        .content {
+            padding: 28px 32px;
+            flex: 1
+        }
+
+        /* Stats */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 28px
+        }
+
+        .stat-card {
+            background: #fff;
+            padding: 20px 24px;
+            border-top: 3px solid transparent
+        }
+
+        .stat-card.new {
+            border-top-color: #e53935
+        }
+
+        .stat-card.read {
+            border-top-color: #ffa726
+        }
+
+        .stat-card.replied {
+            border-top-color: #43a047
+        }
+
+        .stat-card.total {
+            border-top-color: var(--gold)
+        }
+
+        .stat-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--navy);
+            line-height: 1
+        }
+
+        .stat-label {
+            font-size: .75rem;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--text-light);
+            margin-top: 6px
+        }
+
+        /* Filter bar */
+        .filter-bar {
+            background: #fff;
+            padding: 16px 24px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap
+        }
+
+        .filter-bar input,
+        .filter-bar select {
+            font-family: 'Jost', sans-serif;
+            font-size: .85rem;
+            border: 1px solid #ddd;
+            padding: 9px 14px;
+            outline: none;
+            transition: border .2s;
+            color: var(--text);
+            border-radius: 0
+        }
+
+        .filter-bar input:focus,
+        .filter-bar select:focus {
+            border-color: var(--gold)
+        }
+
+        .filter-bar input {
+            flex: 1;
+            min-width: 220px
+        }
+
+        .btn-refresh {
+            background: var(--navy);
+            color: var(--gold-light);
+            border: none;
+            padding: 9px 20px;
+            font-family: 'Jost', sans-serif;
+            font-size: .78rem;
+            font-weight: 600;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background .3s
+        }
+
+        .btn-refresh:hover {
+            background: var(--navy-mid)
+        }
+
+        /* Table */
+        .table-wrap {
+            background: #fff;
+            overflow-x: auto
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse
+        }
+
+        thead {
+            background: var(--navy)
+        }
+
+        th {
+            padding: 13px 16px;
+            text-align: left;
+            font-size: .68rem;
+            font-weight: 600;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, .6);
+            white-space: nowrap
+        }
+
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: .86rem;
+            color: var(--text);
+            vertical-align: top
+        }
+
+        tr:hover td {
+            background: #fafafa
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            font-size: .68rem;
+            font-weight: 600;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            border-radius: 12px
+        }
+
+        .status-new {
+            background: #fdecea;
+            color: #c62828
+        }
+
+        .status-read {
+            background: #fff3e0;
+            color: #e65100
+        }
+
+        .status-replied {
+            background: #e8f5e9;
+            color: #2e7d32
+        }
+
+        .status-closed {
+            background: #eeeeee;
+            color: #616161
+        }
+
+        .action-btn {
+            background: none;
+            border: 1px solid transparent;
+            padding: 5px 12px;
+            font-family: 'Jost', sans-serif;
+            font-size: .75rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all .2s;
+            border-radius: 2px
+        }
+
+        .action-btn.mark {
+            border-color: var(--gold);
+            color: var(--gold)
+        }
+
+        .action-btn.mark:hover {
+            background: var(--gold);
+            color: #fff
+        }
+
+        .action-btn.del {
+            border-color: #e53935;
+            color: #e53935;
+            margin-left: 4px
+        }
+
+        .action-btn.del:hover {
+            background: #e53935;
+            color: #fff
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-light)
+        }
+
+        .empty-state svg {
+            width: 48px;
+            height: 48px;
+            fill: #ddd;
+            margin-bottom: 12px
+        }
+
+        .empty-state p {
+            font-size: .9rem
+        }
+
+        .message-cell {
+            max-width: 280px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: var(--text-light)
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(13, 27, 46, .15);
+            border-top-color: var(--navy);
+            border-radius: 50%;
+            animation: spin .7s linear infinite
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        .loading-row td {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-light)
+        }
+
+        /* Status dropdown in table */
+        select.status-select {
+            border: 1px solid #ddd;
+            padding: 4px 8px;
+            font-family: 'Jost', sans-serif;
+            font-size: .78rem;
+            cursor: pointer;
+            outline: none;
+            background: #fff;
+            transition: border .2s
+        }
+
+        select.status-select:focus {
+            border-color: var(--gold)
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--navy);
+            color: #fff;
+            padding: 14px 22px;
+            font-size: .85rem;
+            font-family: 'Jost', sans-serif;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, .15);
+            transform: translateY(80px);
+            opacity: 0;
+            transition: all .4s;
+            z-index: 9999;
+            border-left: 3px solid var(--gold)
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1
+        }
+
+        .toast.success {
+            border-left-color: #4caf50
+        }
+
+        .toast.error {
+            border-left-color: #e53935
+        }
+
+        /* Expand rows */
+        .expand-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--gold);
+            font-size: 1rem;
+            padding: 0 4px;
+            line-height: 1
+        }
+
+        .detail-row td {
+            background: #f9f6f0;
+            padding: 16px 24px;
+            font-size: .85rem;
+            color: var(--text-light);
+            line-height: 1.65;
+            border-bottom: 2px solid var(--border)
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <div class="sidebar-brand">
+            <div class="sidebar-brand-icon">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                </svg>
+            </div>
+            <h2>True Blue Legals</h2>
+            <p>Admin Portal</p>
+        </div>
+        <nav class="nav-section">
+            <div class="nav-label">Management</div>
+            <a class="nav-item active" href="#">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+                Enquiries
+            </a>
+            <a class="nav-item" href="/" target="_blank">
+                <svg viewBox="0 0 24 24">
+                    <path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+                View Live Site
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <button class="btn-logout" onclick="logout()">Sign Out</button>
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="topbar">
+            <span class="topbar-title">Enquiries Dashboard</span>
+            <span class="topbar-badge" id="totalBadge">Loading…</span>
+        </div>
+        <div class="content">
+
+            <div class="stats-row">
+                <div class="stat-card total">
+                    <div class="stat-num" id="sTotal">—</div>
+                    <div class="stat-label">Total Enquiries</div>
+                </div>
+                <div class="stat-card new">
+                    <div class="stat-num" id="sNew">—</div>
+                    <div class="stat-label">New</div>
+                </div>
+                <div class="stat-card read">
+                    <div class="stat-num" id="sRead">—</div>
+                    <div class="stat-label">Read / In Progress</div>
+                </div>
+                <div class="stat-card replied">
+                    <div class="stat-num" id="sReplied">—</div>
+                    <div class="stat-label">Replied / Closed</div>
+                </div>
+            </div>
+
+            <div class="filter-bar">
+                <input type="text" id="searchInput" placeholder="Search by name, email, phone or message…">
+                <select id="statusFilter">
+                    <option value="">All Statuses</option>
+                    <option value="new">New</option>
+                    <option value="read">Read</option>
+                    <option value="replied">Replied</option>
+                    <option value="closed">Closed</option>
+                </select>
+                <button class="btn-refresh" onclick="loadEnquiries()">Refresh</button>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Contact</th>
+                            <th>Practice Area</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="enquiriesBody">
+                        <tr class="loading-row">
+                            <td colspan="7"><span class="spinner"></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script>
+        const TOKEN_KEY = 'tbl_admin_token';
+        let allData = [];
+
+        const token = localStorage.getItem(TOKEN_KEY);
+        if (!token) window.location.href = '/admin/';
+
+        function authHeaders() {
+            return { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` };
+        }
+
+        function logout() {
+            localStorage.removeItem(TOKEN_KEY);
+            window.location.href = '/admin/';
+        }
+
+        function showToast(msg, type = 'success') {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.className = `toast show ${type}`;
+            setTimeout(() => t.classList.remove('show'), 3500);
+        }
+
+        function formatDate(str) {
+            if (!str) return '—';
+            const d = new Date(str);
+            return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }) +
+                ' ' + d.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+        }
+
+        function statusBadge(status) {
+            const map = { new: 'New', read: 'Read', replied: 'Replied', closed: 'Closed' };
+            return `<span class="status-badge status-${status}">${map[status] || status}</span>`;
+        }
+
+        async function loadEnquiries() {
+            const search = document.getElementById('searchInput').value.trim();
+            const status = document.getElementById('statusFilter').value;
+            const tbody = document.getElementById('enquiriesBody');
+            tbody.innerHTML = '<tr class="loading-row"><td colspan="7"><span class="spinner"></span></td></tr>';
+
+            const params = new URLSearchParams();
+            if (search) params.set('search', search);
+            if (status) params.set('status', status);
+
+            try {
+                const res = await fetch(`/api/admin/enquiries?${params}`, { headers: authHeaders() });
+                if (res.status === 401) { logout(); return; }
+                const data = await res.json();
+                allData = data.data || [];
+
+                // Update stats
+                document.getElementById('sTotal').textContent = data.total || 0;
+                document.getElementById('totalBadge').textContent = `${data.total || 0} enquiries`;
+                const counts = { new: 0, read: 0, replied: 0, closed: 0 };
+                allData.forEach(e => { if (counts[e.status] !== undefined) counts[e.status]++; });
+                document.getElementById('sNew').textContent = counts.new;
+                document.getElementById('sRead').textContent = counts.read;
+                document.getElementById('sReplied').textContent = counts.replied + counts.closed;
+
+                if (allData.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="7"><div class="empty-state">
+        <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2"/></svg>
+        <p>No enquiries found.</p></div></td></tr>`;
+                    return;
+                }
+
+                tbody.innerHTML = allData.map((e, i) => `
+      <tr id="row-${e.id}">
+        <td style="color:#999;font-size:.78rem">${e.id}</td>
+        <td>
+          <button class="expand-btn" onclick="toggleDetail(${e.id})" title="View message">▸</button>
+          <strong>${escHtml(e.first_name)} ${escHtml(e.last_name)}</strong>
+        </td>
+        <td>
+          <div><a href="mailto:${escHtml(e.email)}" style="color:var(--gold)">${escHtml(e.email)}</a></div>
+          <div style="font-size:.78rem;color:#999;margin-top:2px">${escHtml(e.phone)}</div>
+        </td>
+        <td style="font-size:.82rem;color:var(--text-light)">${escHtml(e.practice_area || '—')}</td>
+        <td>
+          <select class="status-select" onchange="updateStatus(${e.id}, this.value)">
+            ${['new', 'read', 'replied', 'closed'].map(s => `<option value="${s}" ${e.status === s ? 'selected' : ''}>${s.charAt(0).toUpperCase() + s.slice(1)}</option>`).join('')}
+          </select>
+        </td>
+        <td style="font-size:.78rem;color:#999;white-space:nowrap">${formatDate(e.created_at)}</td>
+        <td>
+          <button class="action-btn del" onclick="deleteEnquiry(${e.id})">Delete</button>
+        </td>
+      </tr>
+      <tr id="detail-${e.id}" style="display:none">
+        <td colspan="7" class="detail-row">
+          <strong>Message:</strong><br>${escHtml(e.message).replace(/\n/g, '<br>')}
+        </td>
+      </tr>
+    `).join('');
+            } catch (err) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#c62828;padding:30px">Failed to load enquiries. ' + err.message + '</td></tr>';
+            }
+        }
+
+        function toggleDetail(id) {
+            const row = document.getElementById(`detail-${id}`);
+            const btn = document.querySelector(`#row-${id} .expand-btn`);
+            const hidden = row.style.display === 'none';
+            row.style.display = hidden ? '' : 'none';
+            btn.textContent = hidden ? '▾' : '▸';
+        }
+
+        async function updateStatus(id, status) {
+            try {
+                const res = await fetch(`/api/admin/enquiries/${id}`, {
+                    method: 'PATCH',
+                    headers: authHeaders(),
+                    body: JSON.stringify({ status }),
+                });
+                const data = await res.json();
+                if (data.success) {
+                    showToast(`Status updated to "${status}"`, 'success');
+                } else {
+                    showToast(data.message || 'Update failed', 'error');
+                }
+            } catch {
+                showToast('Network error', 'error');
+            }
+        }
+
+        async function deleteEnquiry(id) {
+            if (!confirm('Are you sure you want to permanently delete this enquiry?')) return;
+            try {
+                const res = await fetch(`/api/admin/enquiries/${id}`, {
+                    method: 'DELETE',
+                    headers: authHeaders(),
+                });
+                const data = await res.json();
+                if (data.success) {
+                    showToast('Enquiry deleted', 'success');
+                    loadEnquiries();
+                } else {
+                    showToast(data.message || 'Delete failed', 'error');
+                }
+            } catch {
+                showToast('Network error', 'error');
+            }
+        }
+
+        function escHtml(str) {
+            if (!str) return '';
+            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        // Auto-search on input
+        let searchTimeout;
+        document.getElementById('searchInput').addEventListener('input', () => {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(loadEnquiries, 400);
+        });
+        document.getElementById('statusFilter').addEventListener('change', loadEnquiries);
+
+        // Initial load
+        loadEnquiries();
+    </script>
+</body>
+
+</html>

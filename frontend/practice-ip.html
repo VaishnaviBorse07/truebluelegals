@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Intellectual Property - True Blue Legals</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:wght@300;400;500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --navy:#0d1b2e;--navy-mid:#162336;--gold:#b8965a;--gold-light:#d4aa6e;
+  --gold-pale:#f5efe6;--cream:#faf8f4;--text:#2c2c2c;--text-light:#6a6a6a;
+  --white:#ffffff;--border:rgba(184,150,90,0.25);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden}
+
+/* TOPBAR */
+.topbar{background:var(--navy);color:rgba(255,255,255,0.7);font-size:.78rem;font-family:'Jost',sans-serif;font-weight:300;letter-spacing:.08em;padding:8px 60px;display:flex;justify-content:space-between;align-items:center}
+.topbar a{color:var(--gold-light);text-decoration:none}
+.topbar a:hover{color:#fff}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(250,248,244,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 60px;display:flex;align-items:center;justify-content:space-between;height:74px;transition:box-shadow .3s}
+nav.scrolled{box-shadow:0 4px 30px rgba(0,0,0,.08)}
+.nav-logo{display:flex;align-items:center;gap:14px;text-decoration:none}
+.nav-logo-icon{width:46px;height:46px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.nav-logo-icon svg{width:24px;height:24px;fill:var(--gold)}
+.nav-logo-text{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--navy);font-weight:700;line-height:1.1}
+.nav-logo-sub{font-family:'Jost',sans-serif;font-size:.65rem;letter-spacing:.18em;color:var(--gold);text-transform:uppercase;font-weight:500}
+.nav-links{display:flex;align-items:center;gap:38px;list-style:none}
+.nav-links a{text-decoration:none;color:var(--navy);font-size:.82rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;position:relative;padding-bottom:4px}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--gold);transition:width .3s ease}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.nav-links a.active{color:var(--gold)}
+.nav-cta{background:var(--navy);color:var(--gold-light)!important;padding:10px 24px!important;border-radius:2px;letter-spacing:.12em!important;transition:background .3s!important}
+.nav-cta::after{display:none!important}
+.nav-cta:hover{background:var(--gold)!important;color:#fff!important}
+
+/* BUTTONS */
+.btn-primary{background:var(--gold);color:var(--navy);padding:15px 36px;border:none;font-family:'Jost',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:all .3s;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 100%,12px 100%);display:inline-block}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-2px)}
+.btn-outline{background:transparent;color:var(--navy);padding:14px 34px;border:1px solid var(--navy);font-family:'Jost',sans-serif;font-size:.78rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:all .3s;display:inline-block}
+.btn-outline:hover{background:var(--navy);color:var(--gold-light)}
+.btn-outline-gold{background:transparent;color:var(--gold-light);padding:14px 34px;border:1px solid var(--gold);font-family:'Jost',sans-serif;font-size:.78rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:all .3s;display:inline-block}
+.btn-outline-gold:hover{background:var(--gold);color:var(--navy)}
+
+/* SECTION LABELS */
+.section-label{font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-weight:500;font-family:'Jost',sans-serif;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.section-label::before{content:'';display:block;width:28px;height:1px;background:var(--gold)}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:700;color:var(--navy);line-height:1.2}
+.section-title em{font-style:italic;color:var(--gold)}
+
+/* PAGE HERO */
+.page-hero{background:var(--navy);padding:100px 60px 80px;position:relative;overflow:hidden}
+.page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 80% 50%,rgba(184,150,90,.1) 0%,transparent 65%);pointer-events:none}
+.page-hero-label{font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-family:'Jost',sans-serif;font-weight:500;margin-bottom:20px;display:flex;align-items:center;gap:12px}
+.page-hero-label::before{content:'';display:block;width:32px;height:1px;background:var(--gold)}
+.page-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,4vw,3.6rem);font-weight:700;color:var(--white);line-height:1.18;margin-bottom:20px}
+.page-hero h1 em{color:var(--gold-light);font-style:italic}
+.page-hero p{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:rgba(255,255,255,.6);line-height:1.75;max-width:640px}
+.breadcrumb{display:flex;align-items:center;gap:10px;font-size:.75rem;font-family:'Jost',sans-serif;color:rgba(255,255,255,.35);margin-top:32px;letter-spacing:.08em}
+.breadcrumb a{color:rgba(255,255,255,.5);text-decoration:none}
+.breadcrumb a:hover{color:var(--gold-light)}
+.breadcrumb span{color:var(--gold-light)}
+
+/* FOOTER */
+footer{background:#080f1a;padding:70px 60px 36px;color:rgba(255,255,255,.5)}
+.footer-grid{display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:60px;margin-bottom:60px}
+.footer-brand-text{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--gold-light);font-weight:700;line-height:1.1}
+.footer-brand-sub{font-family:'Jost',sans-serif;font-size:.65rem;letter-spacing:.18em;color:rgba(255,255,255,.35);text-transform:uppercase;font-weight:500}
+.footer-brand p{margin-top:20px;font-family:'Cormorant Garamond',serif;font-size:1rem;line-height:1.75;color:rgba(255,255,255,.45)}
+.footer-col h5{font-family:'Jost',sans-serif;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;color:var(--gold);margin-bottom:20px}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-col ul li a{color:rgba(255,255,255,.45);text-decoration:none;font-size:.88rem;font-family:'Jost',sans-serif;transition:color .25s;display:flex;align-items:center;gap:8px}
+.footer-col ul li a:hover{color:var(--gold-light);padding-left:6px}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:28px;display:flex;justify-content:space-between;align-items:center;font-size:.78rem;font-family:'Jost',sans-serif;color:rgba(255,255,255,.25)}
+.footer-bottom a{color:rgba(255,255,255,.35);text-decoration:none}
+.footer-bottom a:hover{color:var(--gold-light)}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{animation:fadeUp .7s ease both}
+.delay-1{animation-delay:.1s}.delay-2{animation-delay:.25s}.delay-3{animation-delay:.4s}.delay-4{animation-delay:.55s}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .topbar{display:none}
+  nav{padding:0 24px}
+  .nav-links{gap:18px}
+  .page-hero{padding:70px 24px 60px}
+  footer{padding:50px 24px 28px}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:32px}
+  section{padding:60px 24px!important}
+}
+@media(max-width:600px){
+  .footer-grid{grid-template-columns:1fr}
+  .nav-links .hide-mobile{display:none}
+}
+</style>
+
+</head>
+<body>
+
+<div class="topbar">
+  <span>India's Trusted Law Firm &nbsp;·&nbsp; Bombay High Court &nbsp;·&nbsp; Mumbai City Civil Court</span>
+  <a href="tel:+919819289599">📞 &nbsp;+91-9819-289-599</a>
+</div>
+<nav id="mainNav">
+  
+<a href="index.html" class="nav-logo">
+  <div class="nav-logo-icon">
+    <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+  </div>
+  <div>
+    <div class="nav-logo-text">True Blue Legals</div>
+    <div class="nav-logo-sub">Advocates &amp; Solicitors</div>
+  </div>
+</a>
+
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="practice-areas.html" class="active">Practice Areas</a></li><li><a href="contact.html" class="nav-cta">Contact</a></li>
+  </ul>
+</nav>
+
+
+<style>
+.practice-detail{padding:80px 60px;background:var(--white)}
+.practice-detail-grid{display:grid;grid-template-columns:1fr 2.2fr;gap:80px;max-width:1200px;margin:0 auto}
+.pd-sidebar{}
+.pd-sidebar .sidebar-card{background:var(--gold-pale);border-left:3px solid var(--gold);padding:28px 24px;margin-bottom:16px}
+.pd-sidebar .sidebar-card h4{font-family:'Playfair Display',serif;font-size:1rem;font-weight:600;color:var(--navy);margin-bottom:12px}
+.pd-sidebar ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.pd-sidebar ul li a{font-size:.85rem;color:var(--text-light);text-decoration:none;font-family:'Jost',sans-serif;transition:color .2s;display:flex;align-items:center;gap:8px}
+.pd-sidebar ul li a::before{content:'›';color:var(--gold);font-size:1.1rem}
+.pd-sidebar ul li a:hover{color:var(--gold)}
+.pd-sidebar ul li a.current{color:var(--gold);font-weight:600}
+.contact-cta-box{background:var(--navy);padding:28px 24px;margin-top:24px}
+.contact-cta-box h4{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--white);margin-bottom:12px}
+.contact-cta-box p{font-size:.85rem;color:rgba(255,255,255,.5);font-family:'Jost',sans-serif;margin-bottom:20px;line-height:1.6}
+.pd-content h2{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--navy);margin-bottom:24px}
+.pd-content p{font-family:'Cormorant Garamond',serif;font-size:1.12rem;line-height:1.85;color:var(--text-light);margin-bottom:20px}
+.pd-content h3{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:600;color:var(--navy);margin:36px 0 16px}
+.service-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0 32px}
+.service-list li{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;background:var(--cream);font-family:'Jost',sans-serif;font-size:.88rem;color:var(--text);line-height:1.5}
+.service-list li::before{content:'✓';color:var(--gold);font-weight:700;flex-shrink:0;margin-top:1px}
+@media(max-width:900px){
+  .practice-detail{padding:40px 24px}
+  .practice-detail-grid{grid-template-columns:1fr;gap:40px}
+  .service-list{grid-template-columns:1fr}
+}
+</style>
+<section class="page-hero">
+  <div class="page-hero-label">IP Rights & Protection</div>
+  <h1 class="fade-up">Intellectual Property</h1>
+  <p class="fade-up delay-2">True Blue Legal's intellectual property rights team has advised numerous domestic and international clients and over a period of time has gained immense valuable experience in all major intellectual property branches.</p>
+  <div class="breadcrumb">
+    <a href="index.html">Home</a> ›
+    <a href="practice-areas.html">Practice Areas</a> ›
+    <span>Intellectual Property</span>
+  </div>
+</section>
+<div class="practice-detail">
+  <div class="practice-detail-grid">
+    <aside class="pd-sidebar">
+      <div class="sidebar-card">
+        <h4>All Practice Areas</h4>
+        <ul><li><a href="practice-startups.html">Startup Legal Services</a></li>
+<li><a href="practice-ip.html" class="current">Intellectual Property</a></li>
+<li><a href="practice-employment.html">HR, Employment & Labour</a></li>
+<li><a href="practice-realestate.html">Real Estate</a></li>
+<li><a href="practice-insolvency.html">Restructuring & Insolvency</a></li>
+<li><a href="practice-banking.html">Banking & Finance</a></li>
+<li><a href="practice-mergers.html">Merger & Acquisition</a></li>
+<li><a href="practice-litigation.html">Litigation & Dispute Resolution</a></li>
+<li><a href="practice-tax.html">Direct & Indirect Tax</a></li>
+</ul>
+      </div>
+      <div class="contact-cta-box">
+        <h4>Need Legal Advice?</h4>
+        <p>Talk to one of our specialists today. Initial consultations are confidential.</p>
+        <a href="contact.html" class="btn-primary" style="color:var(--navy);width:100%;text-align:center;clip-path:none;padding:12px 20px">Book a Consultation</a>
+      </div>
+    </aside>
+    <div class="pd-content">
+      <h2>Intellectual Property</h2>
+      
+<p>Intellectual property is often a company's most valuable asset — and one of the most complex to protect. True Blue Legals' IP practice advises businesses and individuals on the full spectrum of intellectual property rights across India and internationally.</p>
+<p>Our team has represented clients ranging from individual inventors and creative professionals to large multinational corporations, handling everything from routine trademark filings to complex IP litigation before the High Court and Intellectual Property Appellate Board.</p>
+<h3>Our IP Services Include</h3>
+
+      <ul class="service-list">
+<li>Trademark Registration & Portfolio Management</li>
+<li>Patent Filing & Prosecution</li>
+<li>Copyright Registration</li>
+<li>Design Registration</li>
+<li>IP Due Diligence</li>
+<li>Trademark Opposition & Cancellation</li>
+<li>IP Licensing & Technology Transfer Agreements</li>
+<li>Trade Secret Protection</li>
+<li>Domain Name Disputes</li>
+<li>IP Infringement Litigation</li>
+<li>Anti-Counterfeiting Strategies</li>
+<li>International IP Protection (Madrid Protocol)</li>
+</ul>
+      <p>To discuss how True Blue Legals can assist you with intellectual property matters, please <a href="contact.html" style="color:var(--gold);text-decoration:none;font-weight:600">contact us today</a>.</p>
+      <div style="margin-top:32px">
+        <a href="contact.html" class="btn-primary" style="color:var(--navy);margin-right:16px">Book Consultation</a>
+        <a href="practice-areas.html" class="btn-outline">All Practice Areas</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px">
+        <div class="nav-logo-icon" style="width:40px;height:40px">
+          <svg viewBox="0 0 24 24" fill="var(--gold)" width="20" height="20"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <div>
+          <div class="footer-brand-text">True Blue Legals</div>
+          <div class="footer-brand-sub">Advocates &amp; Solicitors</div>
+        </div>
+      </div>
+      <p>The firm has been actively practicing in litigation at the Bombay High Court, Bombay City Civil Court and all ancillary courts and tribunals in Mumbai. Offices at Fort, Andheri, Kandivali and Borivali.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Practice Areas</h5>
+      <ul>
+        <li><a href="practice-mergers.html">Merger &amp; Acquisitions</a></li>
+        <li><a href="practice-ip.html">Intellectual Property</a></li>
+        <li><a href="practice-employment.html">HR, Employment &amp; Labor</a></li>
+        <li><a href="practice-realestate.html">Real Estate</a></li>
+        <li><a href="practice-tax.html">Direct &amp; Indirect Tax</a></li>
+        <li><a href="practice-banking.html">Banking &amp; Finance</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>More Services</h5>
+      <ul>
+        <li><a href="practice-litigation.html">Litigation &amp; Dispute Resolution</a></li>
+        <li><a href="practice-insolvency.html">Restructuring &amp; Insolvency</a></li>
+        <li><a href="practice-startups.html">Startups Legal Services</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Quick Links</h5>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="practice-areas.html">Practice Areas</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>Copyright &copy; 2026 True Blue Legals. All Rights Reserved.</span>
+    <span>Regulated by the Bar Council of India</span>
+  </div>
+</footer>
+<script>
+  window.addEventListener('scroll',()=>{
+    document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>50);
+  });
+</script>
+
+</body>
+</html>
